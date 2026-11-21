@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+
+# Runtime/settings (the app stores these outside the repo by default)
+config.json
+*.log
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
