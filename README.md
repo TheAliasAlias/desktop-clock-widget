@@ -160,3 +160,7 @@ sudo apt install python3-gi gir1.2-gtk-3.0
 
 Transparency and rounded corners need a compositing window manager, which
 Cinnamon, MATE, Xfce (with compositing) and GNOME all provide.
+
+## License
+
+MIT — see [LICENSE](LICENSE).
