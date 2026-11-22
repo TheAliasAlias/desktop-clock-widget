@@ -1,80 +1,31 @@
-# Desktop Clock & Calendar
+# Desktop Widgets
 
-A small frameless desktop widget for Linux with a live clock, date, month
-calendar and current weather. Drag it anywhere, resize it from any edge, fade it
-into the background, and pick your own fonts, colours and time format.
+Two small, frameless desktop widgets for Linux, sharing the same clean look and
+settings model:
 
-Built with Python 3 and GTK 3 (PyGObject), so there is nothing extra to install
-on Linux Mint / Cinnamon.
+- **Clock & Calendar** — live clock, date, month calendar and current weather.
+- **Notepad** — an editable, autosaving plain-text note.
 
-![Desktop Clock & Calendar](screenshot.png)
+Drag them anywhere, resize them from any edge, fade them into the background,
+and choose your own fonts, colours and opacity. Everything is remembered between
+sessions. Built with Python 3 and GTK 3 (PyGObject), so there is nothing extra
+to install on Linux Mint / Cinnamon.
 
-## Features
+| Clock & Calendar | Notepad |
+|---|---|
+| ![Clock & Calendar](screenshot.png) | ![Notepad](notepad-screenshot.png) |
 
-- Frameless, rounded, always-on-top widget.
-- Drag to move; drag any edge or corner to resize.
+## Clock & Calendar
+
 - Live clock with custom `strftime` format (12/24-hour, seconds, etc.).
 - Date line and month calendar with today marked.
-- Current temperature and conditions from Open-Meteo, with automatic or manually
-  chosen location and Celsius/Fahrenheit units.
-- Settings for fonts, text colour, background colour and background alpha,
-  window opacity, and corner radius.
-- Remembers position, size and every setting between sessions.
-- Optional start at login.
+- Current temperature and conditions, with automatic or manually chosen
+  location and Celsius/Fahrenheit units.
+- Optional week numbers and separate clock, date and calendar fonts.
 
-## Run it
+### Weather
 
-```bash
-git clone https://github.com/TheAliasAlias/desktop-clock-widget.git
-cd desktop-clock-widget
-python3 desktop_clock.py
-```
-
-The first time it runs, the widget appears near the top-right of the screen.
-Starting it again while it is already running simply brings it forward.
-
-## Controls
-
-| Action | How |
-|---|---|
-| Move | Drag the clock, date, or any empty part of the widget |
-| Resize | Drag an edge or corner |
-| Settings | Click the small **⚙** button, or right-click → Settings |
-| Quick options | Right-click the widget |
-| Settings shortcut | `Ctrl+,` |
-| Quit | `Ctrl+Q`, or right-click → Quit |
-
-If you turn off **Always on top**, the widget can sit behind other windows. Use
-the application-menu entry to bring it back.
-
-The calendar arrows browse other months; the widget returns to the current
-month at midnight. If **Lock position and size** is enabled, dragging and
-resizing are disabled, but the settings button and right-click menu still work.
-
-## Settings
-
-- **Clock** — presets or a custom format, plus the clock font.
-- **Date** — show/hide, presets or a custom format, plus the date font.
-- **Weather** — show/hide, location (search by city or use your current
-  location), °C/°F, refresh interval and weather font.
-- **Calendar** — show/hide, week numbers, plus the calendar font.
-- **Appearance** — text colour, background colour, **background alpha**,
-  window opacity, corner radius.
-- **Behaviour** — always on top, lock position/size, start at login, and
-  restore defaults.
-
-Changes apply immediately, while the settings window is open.
-
-### Background alpha vs. window opacity
-
-- **Background alpha** changes only the panel behind the text: 0% is completely
-  transparent, 100% is solid. This is the usual control for a translucent
-  desktop widget.
-- **Window opacity** fades the entire widget, including the clock and calendar.
-
-## Weather
-
-Weather is shown under the date as, for example, `17°C · Partly cloudy`. It uses
+Weather appears under the date as, for example, `17°C · Partly cloudy`. It uses
 the free [Open-Meteo](https://open-meteo.com/) API, which needs no account or
 API key.
 
@@ -91,6 +42,80 @@ API key.
 
 Only the coordinates are sent to Open-Meteo with each request; the last reading
 is cached in the settings file so it can be shown immediately at startup.
+
+## Notepad
+
+- Click in the text area to type; normal text editing, copy/paste and selection
+  all work.
+- Changes save automatically about half a second after you stop typing.
+  `Ctrl+S` saves immediately.
+- The note is a plain UTF-8 text file, so it can be backed up, synced or edited
+  with any other program.
+- **Clear note** in the settings or right-click menu asks for confirmation.
+- Font, text colour, panel colour/alpha, window opacity and corner radius are
+  all adjustable.
+
+The note file lives at:
+
+```
+~/.local/share/desktop-notepad-widget/note.txt
+```
+
+## Run
+
+```bash
+git clone https://github.com/TheAliasAlias/desktop-clock-widget.git
+cd desktop-clock-widget
+
+python3 desktop_clock.py     # clock & calendar
+python3 desktop_notepad.py   # notepad
+```
+
+On first launch the clock appears near the top-right of the screen and the
+notepad near the bottom-right. Starting either one again while it is already
+running simply brings it forward.
+
+## Controls
+
+| Action | How |
+|---|---|
+| Move | Drag the clock/date; drag the notepad's **Note** header or outer padding |
+| Edit the note | Click in the notepad text area |
+| Resize | Drag an edge or corner of either widget |
+| Settings | Click the **⚙** button, or right-click the header/margins → Settings |
+| Quick options | Right-click the header or outer padding |
+| Text menu | Right-click inside the notepad's text area |
+| Save note now | `Ctrl+S` |
+| Settings shortcut | `Ctrl+,` |
+| Quit | `Ctrl+Q`, or right-click → Quit |
+
+If **Always on top** is disabled, a widget can sit behind other windows; use its
+application-menu entry to bring it back. **Lock position and size** disables
+dragging and resizing but leaves the settings button and menu working.
+
+## Settings
+
+The clock has **Clock**, **Date**, **Weather**, **Calendar**, **Appearance** and
+**Behaviour** tabs. The notepad has **Text**, **Appearance** and **Behaviour**
+tabs. Changes apply immediately while the settings window is open.
+
+Both share these appearance controls:
+
+- text colour
+- background colour
+- background alpha
+- window opacity
+- corner radius
+- font (per text element on the clock, one font in the notepad)
+
+### Background alpha vs. window opacity
+
+- **Background alpha** changes only the panel behind the content: 0% is fully
+  transparent, 100% is solid. This is the usual control for a translucent
+  desktop widget.
+- **Window opacity** fades the entire widget, including text.
+
+### Clock format strings
 
 Format strings use the standard Python `strftime` codes, for example:
 
@@ -111,35 +136,31 @@ cd desktop-clock-widget
 ./install.sh
 ```
 
-This adds:
+This adds application-menu entries for both widgets and start-at-login entries
+for both. You can also toggle **Start automatically when I log in** in each
+widget's Behaviour settings.
 
-- an application-menu entry (`~/.local/share/applications/`), and
-- a start-at-login entry (`~/.config/autostart/`).
-
-You can also toggle **Start automatically when I log in** in the widget's
-Behaviour settings.
-
-To remove both entries:
+To remove all four entries:
 
 ```bash
 ./uninstall.sh
 ```
 
-The autostart entry points at the script's current path. If you move this
+The autostart entries point at the scripts' current paths. If you move this
 folder, re-run `install.sh` (or toggle the login option off and on again).
 
-## Settings file
-
-Settings live in:
+## Settings and data files
 
 ```
-~/.config/desktop-clock-widget/config.json
+~/.config/desktop-clock-widget/config.json     clock settings
+~/.config/desktop-notepad-widget/config.json   notepad settings
+~/.local/share/desktop-notepad-widget/note.txt notepad text
 ```
 
-It is written automatically whenever something changes. It also caches the
-chosen weather location and the last reading. Delete the file (with the widget
-closed) to return to defaults, or use **Restore default settings** in the
-Behaviour tab.
+Settings are written automatically whenever something changes. Delete a config
+file (with the widget closed) to return that widget to defaults, or use
+**Restore default settings** in its Behaviour tab. Resetting the notepad never
+touches the note text.
 
 ## Requirements
 
