@@ -943,7 +943,7 @@ class ClockWidget(Gtk.Window):
                     "[Desktop Entry]\n"
                     "Type=Application\n"
                     "Name=Desktop Clock & Calendar\n"
-                    "Comment=Clock and calendar widget\n"
+                    "Comment=Clock, calendar and weather widget\n"
                     f"Exec={desktop_quote(sys.executable)} {desktop_quote(script)}\n"
                     "Icon=preferences-system-time\n"
                     "Terminal=false\n"

@@ -487,7 +487,12 @@ class NotepadWidget(Gtk.Window):
             with open(NOTE_PATH, "r", encoding="utf-8") as fh:
                 text = fh.read()
         except FileNotFoundError:
-            pass
+            try:
+                os.makedirs(NOTE_DIR, exist_ok=True)
+                with open(NOTE_PATH, "w", encoding="utf-8"):
+                    pass
+            except OSError as exc:
+                print(f"Notepad: could not create {NOTE_PATH}: {exc}", file=sys.stderr)
         except OSError as exc:
             print(f"Notepad: could not read {NOTE_PATH}: {exc}", file=sys.stderr)
 
